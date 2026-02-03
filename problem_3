@@ -1,0 +1,24 @@
+function String(str) {
+  let maxUnique = 0;
+  const firstIndex = {};
+
+  for (let i = 0; i < str.length; i++) {
+    const char = str[i];
+
+
+    if (firstIndex[char] !== undefined) {
+      const start = firstIndex[char] + 1;
+      const end = i;
+      const substring = str.slice(start, end);
+
+      const uniqueCount = new Set(substring).size;
+      maxUnique = Math.max(maxUnique, uniqueCount);
+    } else {
+      // Store first occurrence
+      firstIndex[char] = i;
+    }
+  }
+
+  return maxUnique;
+}
+
