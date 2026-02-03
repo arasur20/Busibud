@@ -1,0 +1,47 @@
+function Searching(strArr) {
+  const rows = strArr.length;
+  const cols = strArr[0].length;
+  const visited = Array.from({ length: rows }, () =>
+    Array(cols).fill(false)
+  );
+
+  const directions = [
+    [1, 0],  // down
+    [-1, 0], // up
+    [0, 1],  // right
+    [0, -1]  // left
+  ];
+
+  function dfs(r, c) {
+    visited[r][c] = true;
+
+    for (let [dr, dc] of directions) {
+      const nr = r + dr;
+      const nc = c + dc;
+
+      if (
+        nr >= 0 &&
+        nr < rows &&
+        nc >= 0 &&
+        nc < cols &&
+        !visited[nr][nc] &&
+        strArr[nr][nc] === "0"
+      ) {
+        dfs(nr, nc);
+      }
+    }
+  }
+
+  let holes = 0;
+
+  for (let r = 0; r < rows; r++) {
+    for (let c = 0; c < cols; c++) {
+      if (strArr[r][c] === "0" && !visited[r][c]) {
+        holes++;
+        dfs(r, c);
+      }
+    }
+  }
+
+  return holes;
+}
