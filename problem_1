@@ -1,0 +1,37 @@
+function Array(strArr) {
+  const childToParent = {};
+  const parentToChildren = {};
+  const nodes = new Set();
+  const children = new Set();
+
+  for (let pair of strArr) {
+
+    const [child, parent] = pair
+      .replace(/[()]/g, "")
+      .split(",")
+      .map(Number);
+
+    nodes.add(child);
+    nodes.add(parent);
+    children.add(child);
+
+    if (childToParent[child] !== undefined) {
+      return "false";
+    }
+    childToParent[child] = parent;
+
+    parentToChildren[parent] = (parentToChildren[parent] || 0) + 1;
+    if (parentToChildren[parent] > 2) {
+      return "false";
+    }
+  }
+
+  let rootCount = 0;
+  for (let node of nodes) {
+    if (!children.has(node)) {
+      rootCount++;
+    }
+  }
+
+  return rootCount === 1 ? "true" : "false";
+}
