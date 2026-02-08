@@ -1,0 +1,9 @@
+import $ from "jquery";
+
+const rootApp = document.getElementById("root");
+rootApp.innerHTML = '<button id="toggleBtn">ON</button>';
+
+$("#toggleBtn").on("click", function () {
+  const currentText = $(this).text();
+  $(this).text(currentText === "ON" ? "OFF" : "ON");
+});
