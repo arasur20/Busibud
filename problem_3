@@ -14,7 +14,6 @@ function String(str) {
       const uniqueCount = new Set(substring).size;
       maxUnique = Math.max(maxUnique, uniqueCount);
     } else {
-      // Store first occurrence
       firstIndex[char] = i;
     }
   }
